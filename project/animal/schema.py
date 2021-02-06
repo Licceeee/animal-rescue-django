@@ -1,48 +1,33 @@
 import graphene
-from graphene_django import DjangoObjectType
+from graphene_django.types import DjangoObjectType
 
 from .models import Animal, AnimalType, AnimalCondition
 
 
-class AnimalAPI(DjangoObjectType):
+# ============================================================= >> ANIMAL NODES
+class AnimalNode(DjangoObjectType):
     class Meta:
         model = Animal
 
 
-class AnimalTypeAPI(DjangoObjectType):
+class AnimalTypeNode(DjangoObjectType):
     class Meta:
         model = AnimalType
 
 
-class AnimalConditionAPI(DjangoObjectType):
+class AnimalConditionNode(DjangoObjectType):
     class Meta:
         model = AnimalCondition
 
 
-class Query(graphene.ObjectType):
-    animals = graphene.List(AnimalAPI)
-    animal_types = graphene.List(AnimalTypeAPI)
-    animal_conditions = graphene.List(AnimalConditionAPI)
+# ================================================================ >> MUTATIONS
+class CreateAnimalCondition(graphene.Mutation):
+    condition = graphene.Field(AnimalConditionNode)
 
-    def resolve_animals(self, info, **kwargs):
-        return Animal.objects.all()
+    class Arguments:
+        name = graphene.String()
 
-
-schema = graphene.Schema(query=Query)
-
-
-"""
-    query {
-        animals {
-            id
-            name
-            image
-            Type {
-                name
-            }
-            conditions {
-                name
-            }
-        }
-    }
-"""
+    def mutate(self, info, name):
+        cond = AnimalCondition(name=name)
+        cond.save()
+        return CreateAnimalCondition(condition=cond)
