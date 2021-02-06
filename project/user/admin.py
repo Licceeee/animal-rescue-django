@@ -7,6 +7,6 @@ from .models import CustomUser
 class UserAdmin(admin.ModelAdmin):
     autocomplete_fields = ('groups',)
     search_fields = ('email', 'first_name', 'last_name')
-    readonly_fields = ['last_login', 'date_joined', 'is_superuser', 'password']
+    readonly_fields = ['last_login', 'date_joined', 'is_superuser']
     list_display = ('id', 'email', 'first_name', 'last_name', 'phone',
                     'is_staff', 'get_groups', 'is_active', 'last_login')
