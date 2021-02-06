@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
-
+from core.models import Timestamps  # noqa
 from core.libs.core_libs import (get_headshot_image, get_image_format)  # noqa
 
 
@@ -26,19 +26,17 @@ def icon_dir_path(instance, filename):
 
 
 # ------------------------------------------------------------------ >> CLASSES
-class AnimalGroup(models.Model):
+class AnimalGroup(Timestamps):
     """model for group of animals:
             mammals, birds, reptiles, amphibians, fish, invertebrates.
     """
     name = models.CharField(max_length=256, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name}"
 
 
-class AnimalType(models.Model):
+class AnimalType(Timestamps):
     """model for _type of animal.
         e.g.: cat, dog, mouse, etc..
     """
@@ -46,8 +44,6 @@ class AnimalType(models.Model):
     group = models.ForeignKey(AnimalGroup, null=True, on_delete=models.PROTECT)
     icon = models.ImageField(default=None, upload_to=icon_dir_path,
                              null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -61,20 +57,18 @@ class AnimalType(models.Model):
     get_icon.short_description = _('Icon')
 
 
-class AnimalCondition(models.Model):
+class AnimalCondition(Timestamps):
     """model for condition of animal.
         e.g.: injured, ill, malnourished, good shape, etc..
     """
     name = models.CharField(max_length=256, unique=True)
     description = models.CharField(max_length=256, null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name}"
 
 
-class Animal(models.Model):
+class Animal(Timestamps):
     """model for condition of animal.
         e.g.: injured, ill, malnourished, good shape, etc..
     """
@@ -84,9 +78,6 @@ class Animal(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True)
     image = models.ImageField(default=None, upload_to=img_dir_path,
                               null=True, blank=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         conditions = ", ".join([

@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
-    'animal.apps.AnimalConfig',
-    'user.apps.UserConfig',
     'graphene_django',
+    'core.apps.CoreConfig',
+    'user.apps.UserConfig',
+    'animal.apps.AnimalConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -53,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'project.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
@@ -103,9 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'user.CustomUser'
 
 GRAPHENE = {
-    'SCHEMA': 'project.schema.schema'  # Where your Graphene schema lives
+    'SCHEMA': 'config.schema.schema'  # Where your Graphene schema lives
 }
 
 # Internationalization
@@ -132,7 +135,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'project/static',
+    BASE_DIR / 'config/static',
 ]
 
 
