@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
     'animal.apps.AnimalConfig',
+    'messenger.apps.MessengerConfig',
 
 
 ]
