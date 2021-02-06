@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig',
-    'animal.apps.AnimalConfig',
-    'user.apps.UserConfig',
     'graphene_django',
+    'core.apps.CoreConfig',
+    'user.apps.UserConfig',
+    'animal.apps.AnimalConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -103,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'user.CustomUser'
 
 GRAPHENE = {
     'SCHEMA': 'config.schema.schema'  # Where your Graphene schema lives
