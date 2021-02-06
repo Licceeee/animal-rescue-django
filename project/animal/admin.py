@@ -4,7 +4,8 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from django.db import models
 
-from .models import (Animal, AnimalCondition, AnimalType, AnimalImage)
+from .models import (Animal, AnimalCondition, AnimalType, AnimalImage,
+                     AnimalGroup)
 
 
 class AdminImageWidget(AdminFileWidget):
@@ -16,8 +17,11 @@ class AdminImageWidget(AdminFileWidget):
             file_name = str(value)
             output.append(f'<a href="{image_url}" target="_blank">'
                           f' <img src="{image_url}" alt={file_name}" '
-                          f'width="150" height="150"  style="object-fit:'
-                          f' cover;"/></a> {_("")} ')
+                          f'width="150" height="150"'
+                          f'style="object-fit: cover;'
+                          f'border-radius: 5px; '
+                          f'box-shadow: 0px 2px 17px -4px #6D8291;"/>'
+                          f'</a> {_("")} ')
         output.append(super(AdminFileWidget, self).render(name, value, attrs))
         return format_html(u''.join(output))
 
@@ -28,10 +32,18 @@ class AnimalImageAdminWidget(admin.StackedInline):
     formfield_overrides = {models.ImageField: {'widget': AdminImageWidget}}
 
 
+@admin.register(AnimalGroup)
+class AnimalGroupAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ('name', 'created')
+    readonly_fields = ('created', 'updated')
+
+
 @admin.register(AnimalType)
 class AnimalTypeAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_display = ('name', 'created')
+    list_display = ('name', 'group', 'created')
+    autocomplete_fields = ['group']
     readonly_fields = ('created', 'updated')
 
 
@@ -45,10 +57,12 @@ class AnimalConditionAdmin(admin.ModelAdmin):
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
     inlines = [AnimalImageAdminWidget]
-    search_fields = ['_type']
+    search_fields = ['_type__name']
     autocomplete_fields = ['_type', 'conditions']
     list_display = ('_type', 'get_conditions', 'description', 'name',
-                    'get_image', 'created')
+                    'get_images', 'created', 'get_image')
+    list_filter = ('_type__name',)
+    list_display_links = ('name', '_type', 'get_conditions', 'get_image')
     readonly_fields = ('created', 'updated', 'headshot_image')
 
 
