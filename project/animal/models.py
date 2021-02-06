@@ -44,11 +44,21 @@ class AnimalType(models.Model):
     """
     name = models.CharField(max_length=256, unique=True)
     group = models.ForeignKey(AnimalGroup, null=True, on_delete=models.PROTECT)
+    icon = models.ImageField(default=None, upload_to=icon_dir_path,
+                             null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name}"
+
+    def headshot_image(self):
+        return get_headshot_image(self.icon, 100)
+    headshot_image.short_description = _('Preview')
+
+    def get_icon(self):
+        return get_image_format(self.icon, 50)
+    get_icon.short_description = _('Icon')
 
 
 class AnimalCondition(models.Model):
@@ -74,8 +84,6 @@ class Animal(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True)
     image = models.ImageField(default=None, upload_to=img_dir_path,
                               null=True, blank=True)
-    icon = models.ImageField(default=None, upload_to=icon_dir_path,
-                             null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -100,11 +108,11 @@ class Animal(models.Model):
     get_images.short_description = _('# Images')
 
     def headshot_image(self):
-        return get_headshot_image(self.image)
+        return get_headshot_image(self.image, 300)
     headshot_image.short_description = _('Preview')
 
     def get_image(self):
-        return get_image_format(self.image)
+        return get_image_format(self.image, 100)
     get_image.short_description = _('Image')
 
 
@@ -119,12 +127,12 @@ class AnimalImage(models.Model):
         return (f"{self.animal._type.name}: {self.animal.name}")
 
     def get_image(self):
-        return get_image_format(self.image)
+        return get_image_format(self.image, 100)
 
     get_image.short_description = _('Image')
 
     def headshot_image(self):
-        return get_headshot_image(self.image)
+        return get_headshot_image(self.image, 300)
     headshot_image.short_description = _('Preview')
 
     def get_animal(self):
