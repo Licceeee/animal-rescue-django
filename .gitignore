@@ -3,7 +3,7 @@ venv
 project/project/local_settings.py
 project/**/migrations/*
 project/static/
-project/media/animals/
+# project/media/animals/
 # project/db.sqlite3
 .vscode/
 *__pycache__/
