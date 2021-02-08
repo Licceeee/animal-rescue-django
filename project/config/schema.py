@@ -6,7 +6,7 @@ from animal.schema import (AnimalNode, AnimalTypeNode, AnimalConditionNode,
                            CreateAnimalCondition)
 
 from user.models import CustomUser
-from user.schema import UserNode
+from user.schema import UserNode, CreateUser
 
 
 class Query(graphene.ObjectType):
@@ -31,6 +31,7 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     create_condition = CreateAnimalCondition.Field()
+    create_user = CreateUser.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
