@@ -13,7 +13,7 @@ def img_dir_path(instance, filename):
     else:
         # set filename as random string
         filename = f'{uuid4().hex}.{ext}'
-    return (f'animal/{filename}')
+    return (f'animals/{filename}')
 
 
 def icon_dir_path(instance, filename):
