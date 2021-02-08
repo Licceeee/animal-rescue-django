@@ -10,14 +10,21 @@ class UserNode(DjangoObjectType):
         model = CustomUser
 
 
-# # ================================================================ >> MUTATIONS
-# class CreateUser(graphene.Mutation):
-#     user = graphene.Field(UserNode)
+class CreateUser(graphene.Mutation):
+    id = graphene.Int()
+    first_name = graphene.String()
+    last_name = graphene.String()
 
-#     class Arguments:
-#         name = graphene.String()
+    class Arguments:
+        first_name = graphene.String()
+        last_name = graphene.String()
 
-#     def mutate(self, info, name):
-#         cond = CustomUser(name=name)
-#         cond.save()
-#         return CreateUser(condition=cond)
+    def mutate(self, info, first_name, last_name):
+        user = CustomUser(first_name=first_name, last_name=last_name)
+        user.save()
+
+        return CreateUser(
+            id=user.id,
+            first_name=user.first_name,
+            last_name=user.last_name,
+        )
