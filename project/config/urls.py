@@ -10,6 +10,8 @@ from graphene_django.views import GraphQLView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
+    # csrf_exempt disables for the view the csrf protection
+    # when taken away, graphene can query but cannot post
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
 

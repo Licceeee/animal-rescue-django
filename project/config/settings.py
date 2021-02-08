@@ -38,16 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'corsheaders',
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
     'animal.apps.AnimalConfig',
-
-
+    'messenger.apps.MessengerConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,6 +137,13 @@ MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'config/static',
+]
+
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+    # your React App domain
 ]
 
 
