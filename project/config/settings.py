@@ -1,4 +1,4 @@
-
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -8,10 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-SECRET_KEY = "env('SECRET_KEY')"
+DEBUG = config('DEBUG', default=False, cast=bool)
+TEMPLATE_DEBUG = DEBUG
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
@@ -143,7 +142,7 @@ LOCATION_FIELD = {
     'search.suffix': '',
     'geocoder': True,
     'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-    'provider.google.api_key': "env('GOOGLE_MAPS_API_KEY')",
+    'provider.google.api_key': config('GOOGLE_MAPS_API_KEY'),
     'provider.google.api_libraries': '',
     'provider.google.map.type': 'ROADMAP',
     # misc
