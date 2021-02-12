@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from core.models import Timestamps  # noqa
 from core.libs.core_libs import (get_headshot_image, get_image_format)  # noqa
+from location_field.models.plain import PlainLocationField
 
 
 # ---------------------------------------------------------------- >> FUNCTIONS
@@ -72,12 +73,39 @@ class Animal(Timestamps):
     """model for condition of animal.
         e.g.: injured, ill, malnourished, good shape, etc..
     """
+
+    ANIMAL_STATE = (
+        ('F', _("Found")),
+        ('M', _("Missing"))
+    )
+
+    GENDER = (
+        ('F', _("Female")),
+        ('M', _("Male")),
+        ('U', _("Unknown"))
+    )
+
+    AGE = (
+        ('B', _("Baby")),
+        ('A', _("Adult")),
+        ('U', _("Uncertain")),
+    )
+
+    post_type = models.CharField(max_length=2, choices=ANIMAL_STATE,
+                                 default='F')
     _type = models.ForeignKey(AnimalType, on_delete=models.PROTECT)
     conditions = models.ManyToManyField(AnimalCondition)
-    description = models.CharField(max_length=256, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     name = models.CharField(max_length=256, null=True, blank=True)
     image = models.ImageField(default=None, upload_to=img_dir_path,
                               null=True, blank=True)
+    is_chipped = models.BooleanField(default=False)
+    chip = models.CharField(max_length=256, null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER, default='U')
+    age = models.CharField(max_length=1, choices=AGE, default='A')
+    neutered = models.BooleanField(default=False)
+    location = PlainLocationField(based_fields=['city'], zoom=7,
+                                  null=True, blank=True)
 
     def __str__(self):
         conditions = ", ".join([
@@ -103,7 +131,10 @@ class Animal(Timestamps):
     headshot_image.short_description = _('Preview')
 
     def get_image(self):
-        return get_image_format(self.image, 100)
+        if self.image:
+            return get_image_format(self.image, 100)
+        else:
+            return "No Image"
     get_image.short_description = _('Image')
 
 
