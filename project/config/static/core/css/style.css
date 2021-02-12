@@ -4,6 +4,34 @@ html {
 }
 
 body {
-  background-color: #F2F5F7;
+  background-color: #F7F7F7;
+  color: #bd4545;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+body .main {
+  padding: 10% 0;
+  text-align: center;
+}
+
+a {
+  color: #747474;
+}
+
+a:hover {
+  color: #295563;
 }
 /*# sourceMappingURL=style.css.map */

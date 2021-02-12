@@ -1,4 +1,4 @@
-$base-bg: #F2F5F7;
+$base-bg: #F7F7F7;
 html {
     margin: 0;
     padding: 0;
@@ -6,4 +6,22 @@ html {
 
 body {
     background-color: $base-bg;
+    color: rgb(189, 69, 69);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    .main {
+        padding: 10% 0;
+        text-align: center;
+    }
+}
+
+a {
+    color: rgb(116, 116, 116);
+}
+
+a:hover {
+    color: rgb(41, 85, 99);
 }
