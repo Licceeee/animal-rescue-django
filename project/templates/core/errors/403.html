@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<meta name="description" content="Error 403. Forbidden." />
+{% block title %} | Error 403 {% endblock %}
+<!--begin::Head-->
+{% include 'core/_partials/head.html' %}
+<!--end::Head-->
+
+<body class="dark-mode">
+
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <h1 class="error">Error #403</h1>
+                <h2 class="sec-error-text-color">Forbidden</h2>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button class="btn btn-primary-acc mr-2 mb-3" onclick="goBack()">
+                <span class="d-none d-md-inline">Get</span>
+                    out of here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const goBack = () => {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>
