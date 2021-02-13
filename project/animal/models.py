@@ -57,6 +57,10 @@ class AnimalType(Timestamps):
         return get_image_format(self.icon, 50)
     get_icon.short_description = _('Icon')
 
+    def get_animal_numbers(self):
+        return self.animal_set.count()
+    get_animal_numbers.short_description = _('# Animals')
+
 
 class AnimalCondition(Timestamps):
     """model for condition of animal.
@@ -85,11 +89,11 @@ class Animal(Timestamps):
         ('U', _("Unknown"))
     )
 
-    AGE = (
-        ('B', _("Baby")),
-        ('A', _("Adult")),
-        ('U', _("Uncertain")),
-    )
+    # AGE = (
+    #     ('B', _("Baby")),
+    #     ('A', _("Adult")),
+    #     ('U', _("Uncertain")),
+    # )
 
     post_type = models.CharField(max_length=2, choices=ANIMAL_STATE,
                                  default='F')
@@ -102,7 +106,8 @@ class Animal(Timestamps):
     is_chipped = models.BooleanField(default=False)
     chip = models.CharField(max_length=256, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER, default='U')
-    age = models.CharField(max_length=1, choices=AGE, default='A')
+    age_years = models.IntegerField(default=0)
+    age_months = models.IntegerField(default=0)
     neutered = models.BooleanField(default=False)
     location = PlainLocationField(based_fields=['city'], zoom=7,
                                   null=True, blank=True)
