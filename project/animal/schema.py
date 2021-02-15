@@ -24,7 +24,6 @@ class AnimalTypeNode(DjangoObjectType):
             "name",
             "icon",
             'animal_set',
-            'get_animal_numbers'
         ]
 
 
@@ -41,6 +40,7 @@ class CreateAnimalCondition(graphene.Mutation):
         name = graphene.String()
 
     def mutate(self, info, **data):
+        print(data)
         cond = AnimalCondition(**data)
         cond.save()
         return CreateAnimalCondition(condition=cond)
@@ -57,14 +57,14 @@ class CreateAnimal(graphene.Mutation):
         age_months = graphene.Int()
         neutered = graphene.Boolean()
         # location
-        # _type
+        animal_type = graphene.Int()
         # post_type
         # conditions
         # image
         # gender
 
-    @classmethod
     def mutate(self, info, **data):
-        a = Animal(**data)
-        a.save()
-        return CreateAnimal(animal=a)
+        data['animal_type'] = AnimalType.objects.get(id=data['animal_type'])
+        new_animal = Animal(**data)
+        new_animal.save()
+        return CreateAnimal(animal=new_animal)
