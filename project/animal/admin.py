@@ -59,18 +59,18 @@ class AnimalConditionAdmin(admin.ModelAdmin):
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
     inlines = [AnimalImageAdminWidget]
-    search_fields = ['_type__name']
-    autocomplete_fields = ['_type', 'conditions']
-    list_display = ('_type', 'get_conditions', 'description', 'name',
+    search_fields = ['animal_type__name']
+    autocomplete_fields = ['animal_type', 'conditions']
+    list_display = ('animal_type', 'get_conditions', 'description', 'name',
                     'get_images', 'created', 'get_image')
-    list_filter = ('_type__name',)
-    list_display_links = ('name', '_type', 'get_conditions', 'get_image')
+    list_filter = ('animal_type__name',)
+    list_display_links = ('name', 'animal_type', 'get_conditions', 'get_image')
     readonly_fields = ('created', 'updated', 'headshot_image')
 
 
 @admin.register(AnimalImage)
 class AnimalImageAdmin(admin.ModelAdmin):
-    search_fields = ['animal___type__name', 'animal__name']
+    search_fields = ['animal__animal_type__name', 'animal__name']
     autocomplete_fields = ['animal']
     readonly_fields = ('headshot_image', 'created')
     list_display = ('get_animal', 'get_post_date', 'get_image')
