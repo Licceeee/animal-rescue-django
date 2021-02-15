@@ -38,7 +38,7 @@ class AnimalGroup(Timestamps):
 
 
 class AnimalType(Timestamps):
-    """model for _type of animal.
+    """model for animal_type of animal.
         e.g.: cat, dog, mouse, etc..
     """
     name = models.CharField(max_length=256, unique=True)
@@ -97,7 +97,9 @@ class Animal(Timestamps):
 
     post_type = models.CharField(max_length=2, choices=ANIMAL_STATE,
                                  default='F')
-    _type = models.ForeignKey(AnimalType, on_delete=models.PROTECT)
+    animal_type = models.ForeignKey(AnimalType, on_delete=models.PROTECT,
+                                    null=True, blank=True,
+                                    related_name='animal_type_ordered')
     conditions = models.ManyToManyField(AnimalCondition)
     description = models.TextField(null=True, blank=True)
     name = models.CharField(max_length=256, null=True, blank=True)
@@ -115,7 +117,7 @@ class Animal(Timestamps):
     def __str__(self):
         conditions = ", ".join([
             condition.name for condition in self.conditions.all()])
-        return f"{self._type.name}: {conditions}"
+        return f"{self.animal_type}: {conditions}"
 
     # TODO filter Animal by last 2 weeks
 
@@ -151,7 +153,7 @@ class AnimalImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return (f"{self.animal._type.name}: {self.animal.name}")
+        return (f"{self.animal.animal_type.name}: {self.animal.name}")
 
     def get_image(self):
         return get_image_format(self.image, 100)
@@ -163,7 +165,7 @@ class AnimalImage(models.Model):
     headshot_image.short_description = _('Preview')
 
     def get_animal(self):
-        return (f"{self.animal._type.name}: {self.animal.name}")
+        return (f"{self.animal.animal_type.name}: {self.animal.name}")
     get_animal.short_description = _('Animal')
 
     def get_post_date(self):
