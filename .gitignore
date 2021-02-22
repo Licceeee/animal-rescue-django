@@ -1,6 +1,6 @@
 *.pyc
 venv
-project/project/local_settings.py
+project/config/local_settings.py
 project/**/migrations/*
 project/static/
 project/media/*
