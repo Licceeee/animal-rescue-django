@@ -62,6 +62,7 @@ class AnimalType(Timestamps):
             return self.animal_set.count()
         except Exception:
             return 0
+
     get_animal_numbers.short_description = _('# Animals')
 
 
