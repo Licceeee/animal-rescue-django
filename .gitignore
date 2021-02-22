@@ -9,3 +9,5 @@ project/db.sqlite3
 *__pycache__/
 snips/
 project/.env
+
+
