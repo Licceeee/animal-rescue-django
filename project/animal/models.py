@@ -58,7 +58,11 @@ class AnimalType(Timestamps):
     get_icon.short_description = _('Icon')
 
     def get_animal_numbers(self):
-        return self.animal_set.count()
+        try:
+            return self.animal_set.count()
+        except Exception:
+            return 0
+
     get_animal_numbers.short_description = _('# Animals')
 
 
