@@ -13,7 +13,7 @@ from user.schema import UserNode, CreateUser
 
 class Query(graphene.ObjectType):
     animals = graphene.List(AnimalNode)
-    animalanimal_types = graphene.List(AnimalTypeNode)
+    animal_types = graphene.List(AnimalTypeNode)
     animal_groups = graphene.List(AnimalGroupNode)
     animal_conditions = graphene.List(AnimalConditionNode)
 
