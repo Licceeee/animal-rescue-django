@@ -22,7 +22,7 @@ class Query(graphene.ObjectType):
     def resolve_animals(self, info, **kwargs):
         return Animal.objects.all()
 
-    def resolve_animalanimal_types(self, info, **kwargs):
+    def resolve_animal_types(self, info, **kwargs):
         return AnimalType.objects.all()
 
     def resolve_animal_groups(self, info, **kwargs):
