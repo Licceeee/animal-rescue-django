@@ -45,6 +45,7 @@ class AnimalType(Timestamps):
     group = models.ForeignKey(AnimalGroup, null=True, on_delete=models.PROTECT)
     icon = models.ImageField(default=None, upload_to=icon_dir_path,
                              null=True, blank=True)
+    icon_name = models.CharField(max_length=256, default="cat")
 
     def __str__(self):
         return f"{self.name}"

@@ -43,7 +43,7 @@ class AnimalGroupAdmin(admin.ModelAdmin):
 class AnimalTypeAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ('name', 'group', 'get_animal_numbers', 'get_icon',
-                    'created')
+                    'icon_name', 'created')
     autocomplete_fields = ['group']
     list_filter = ('group__name',)
     readonly_fields = ('created', 'updated', 'headshot_image')
