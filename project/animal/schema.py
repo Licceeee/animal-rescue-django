@@ -9,6 +9,22 @@ class AnimalNode(DjangoObjectType):
     class Meta:
         description = "Representation of an animal"
         model = Animal
+        only_fields = [
+            "post_type",
+            "animal_type",
+            "conditions",
+            'description',
+            "name",
+            "image",
+            "is_chipped",
+            'chip',
+            "gender",
+            "age_years",
+            "age_months",
+            'neutered',
+            "location",
+            "animalimage_set",
+        ]
 
 
 class AnimalGroupNode(DjangoObjectType):
