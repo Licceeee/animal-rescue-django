@@ -1,8 +1,9 @@
 import graphene
 
-from animal.models import (Animal, AnimalGroup, AnimalType, AnimalCondition)
+from animal.models import (Animal, AnimalGroup, AnimalType, AnimalCondition,
+                           AnimalImage)
 from animal.schema import (AnimalNode, AnimalGroupNode, AnimalTypeNode,
-                           AnimalConditionNode)
+                           AnimalConditionNode, AnimalImageNode)
 from animal.schema import (CreateAnimalCondition, CreateAnimal)
 
 from user.models import CustomUser

@@ -1,7 +1,8 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from .models import Animal, AnimalType, AnimalCondition, AnimalGroup
+from .models import (Animal, AnimalType, AnimalCondition, AnimalGroup,
+                     AnimalImage)
 
 
 # ============================================================= >> ANIMAL NODES
@@ -10,6 +11,9 @@ class AnimalNode(DjangoObjectType):
         description = "Representation of an animal"
         model = Animal
         only_fields = [
+            "id",
+            "created",
+            "updated",
             "post_type",
             "animal_type",
             "conditions",
@@ -31,6 +35,12 @@ class AnimalGroupNode(DjangoObjectType):
     class Meta:
         description = "Representation of an animal group"
         model = AnimalGroup
+
+
+class AnimalImageNode(DjangoObjectType):
+    class Meta:
+        description = "Representation of an animal image"
+        model = AnimalImage
 
 
 class AnimalTypeNode(DjangoObjectType):
