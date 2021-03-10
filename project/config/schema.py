@@ -13,6 +13,7 @@ from user.schema import UserNode, CreateUser
 
 class Query(graphene.ObjectType):
     animals = graphene.List(AnimalNode)
+    animal_by_id = graphene.Field(AnimalNode, id=graphene.Int())
     animal_types = graphene.List(AnimalTypeNode)
     animal_groups = graphene.List(AnimalGroupNode)
     animal_conditions = graphene.List(AnimalConditionNode)
@@ -21,6 +22,9 @@ class Query(graphene.ObjectType):
 
     def resolve_animals(self, info, **kwargs):
         return Animal.objects.all()
+
+    def resolve_animal_by_id(self, info, id):
+        return Animal.objects.get(pk=id)
 
     def resolve_animal_types(self, info, **kwargs):
         return AnimalType.objects.all()
