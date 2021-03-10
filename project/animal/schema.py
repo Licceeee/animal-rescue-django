@@ -23,6 +23,7 @@ class AnimalTypeNode(DjangoObjectType):
         only_fields = [
             "name",
             "icon",
+            "icon_name",
             'animal_set',
         ]
 
